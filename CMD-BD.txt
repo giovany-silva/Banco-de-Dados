@@ -1,0 +1,24 @@
+create role supervisor_encargos  ⇐ relacionados a gastos e despesas
+grant usage on schema  public to supervisor_encargos
+grant select,insert,update,delete on gastos,despesa,receita to supervisor_encargos
+grant execute on function consultaTotal(tipo_setor varchar,ano_setor integer) to supervisor_encargos
+create role auxiliar_encargos;
+grant usage on schema  public to auxiliar_encargos;
+grant select on gastos,despesa,receita to auxiliar_encargos;
+
+
+create role supervisor_insumos ⇐ Relacionados a aquisicoes ,baixas ,compra e estoque
+grant usage on schema  public to supervisor_insumos
+grant select,insert,update,delete on ativos,compra,estoque to supervisor_insumos
+
+create role auxiliar_insumos;
+grant usage on schema  public to auxiliar_insumos;
+grant select on ativos,compra,estoque to auxiliar_insumos;
+
+create role supervisor_pessoal ⇐ Relacionada ao pessoal
+grant usage on schema  public to supervisor_pessoal
+grant select,insert,update,delete on pessoal to supervisor_pessoal
+
+create role auxiliar_pessoal;
+grant usage on schema  public to auxiliar_pessoal;
+grant select on pessoal to auxiliar_pessoal;

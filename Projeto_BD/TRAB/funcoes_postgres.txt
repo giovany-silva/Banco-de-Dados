@@ -1,0 +1,31 @@
+select retorna_tabelas('maria')
+drop function retorna_atributos(nome_tabela varchar)
+
+create or replace function retorna_atributos(nome_tabela varchar)
+returns table(
+nome_atributo information_schema.sql_identifier
+)
+as $$
+    begin
+        return QUERY
+            SELECT
+   				COLUMN_NAME AS CAMPO  
+			FROM
+   				INFORMATION_SCHEMA.COLUMNS   
+			WHERE table_name = nome_tabela;
+    end;
+$$ language plpgsql
+
+select retorna_atributos('ativos')
+create or replace function retorna_tabelas(nome_usuario varchar)
+returns table(
+nome_tabela information_schema.sql_identifier
+)
+as $$
+    begin
+        return QUERY
+            SELECT table_name
+            FROM information_schema.role_table_grants, pg_group,pg_user
+            WHERE grantee=groname and usesysid = any(grolist) and usename=nome_usuario and privilege_type='SELECT';
+    end;
+$$ language plpgsql
